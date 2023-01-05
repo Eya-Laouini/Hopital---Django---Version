@@ -1,0 +1,45 @@
+{% load static %}
+<html>
+
+<head>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+   {% include "navBar2.html" %}
+   <div class="container">
+      <div class="card mb-6">
+         <div class="card-body">
+            <h1>Liste des services</h1>
+            <table border="1">
+               <thead>
+                  <tr>
+                     <td>ID</td>
+                     <td>Service</td>
+                     <td>Description</td>
+                     {% if request.user.is_staff %}
+                     <td>Supprimer</td>
+                     {% endif %}
+
+                  </tr>
+               </thead>
+               
+               <tbody>
+                  {% for s in ser %}
+                  <tr>
+                     <td>{{ s.id }}</td>
+                     <td>{{ s.nomSer }}</td>
+                     <td>{{ s.description }}</td>
+                     {% if request.user.is_staff %}
+                        <td><a  href="del_ser/{{ s.idSer }}"
+                           onclick="return confirm('voulez-vous vraiment supprimer ce service ?')"> <img height="32" width="32" src="{% static 'img/delete.jfif' %}">
+                           </a></td>
+                           {% endif %}
+
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+</body>
+
+</html>

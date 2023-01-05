@@ -1,0 +1,60 @@
+<html>
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+<body>
+    {% include "navBar2.html" %}
+    <div class="container">
+        <div class="card mb-6">
+            <div class="card-body">
+                <h1 class="card-title text-center">Bienvenue sur mon Hopital</h1>
+            </div>
+        </div>
+        <a href="patient/addp" class="btn btn-dark text-center mt-5">Ajouter un patient</a>
+    </div>
+</body>
+<h1 class="text-center">Liste des patients</h1>
+<center>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</td>
+                <th>Nom</td>
+                <th>Prenom</td>
+                <th>Numero de Telephone</td>
+                <th>Date de Naissance</td>
+                <td>Services</td>
+                <td>Modifier</td>
+                <td>Supprimer</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pat %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.prenom }}</td>
+                <td>{{ p.numtel }}</td>
+                <td>{{ p.dateNais }}</td>
+                {% for s in ser %}
+                {% if p.service_id == s.id %}
+                <td>{{s.nomSer}}</td>
+                {% endif %}
+                {% endfor %}
+                <td><a href="update_pat/{{ p.id }}"> <img height="32" width="32" src="{% static 'img/edit.png' %}"> </a></td>
+                <td><a href="del_pat/{{ p.id }}" onclick="return confirm('voulez-vous vraiment supprimer cet patient ?')">
+                        <img height="32" width="32" src="{% static 'img/delete.jfif' %}">
+                    </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </body>
+
+</center>
+
+</html>
